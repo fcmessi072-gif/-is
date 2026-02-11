@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light Unit Converter - เครื่องมือแปลงหน่วยแสง</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        h2 { color: #2c3e50; text-align: center; }
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; color: #34495e; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        .result-box { background: #e8f4fd; padding: 1rem; border-radius: 6px; border-left: 5px solid #3498db; margin-top: 1rem; }
+        .info { font-size: 0.85rem; color: #7f8c8d; margin-top: 10px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>💡 Light Unit Converter</h2>
+    
+    <div class="input-group">
+        <label> Illuminance (ความสว่างบนพื้นผิว)</label>
+        <input type="number" id="luxInput" placeholder="ใส่ค่า Lux" oninput="convertLux(this.value)">
+        <div class="info">แปลงระหว่าง <b>Lux (lx)</b> และ <b>Foot-candle (fc)</b></div>
+    </div>
+
+    <div class="result-box" id="illuminanceResult">
+        แปลงเป็น: 0 foot-candle
+    </div>
+
+    <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+
+    <div class="input-group">
+        <label>Luminance (ความสว่างของแหล่งกำเนิด)</label>
+        <input type="number" id="nitInput" placeholder="ใส่ค่า cd/m² (Nits)" oninput="convertNits(this.value)">
+        <div class="info">แปลงจาก <b>cd/m² (Nits)</b> เป็น <b>Foot-lambert (fL)</b></div>
+    </div>
+
+    <div class="result-box" id="luminanceResult">
+        แปลงเป็น: 0 foot-lambert
+    </div>
+</div>
+
+<script>
+    function convertLux(lux) {
+        const fcResult = document.getElementById('illuminanceResult');
+        if (!lux || lux < 0) {
+            fcResult.innerText = "แปลงเป็น: 0 foot-candle";
+            return;
+        }
+        // 1 foot-candle = 10.764 lux
+        const fc = lux / 10.764;
+        fcResult.innerHTML = `แปลงเป็น: <b>${fc.toFixed(4)}</b> fc`;
+    }
+
+    function convertNits(nits) {
+        const flResult = document.getElementById('luminanceResult');
+        if (!nits || nits < 0) {
+            flResult.innerText = "แปลงเป็น: 0 foot-lambert";
+            return;
+        }
+        // 1 foot-lambert = 3.426 candela/m²
+        const fl = nits / 3.426;
+        flResult.innerHTML = `แปลงเป็น: <b>${fl.toFixed(4)}</b> fL`;
+    }
+</script>
+
+</body>
+</html>
